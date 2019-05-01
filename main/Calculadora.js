@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Text, View, Button} from 'react-native';
-
+import {Platform, StyleSheet, Text, View} from 'react-native';
+import Button from '../components/Button'
 import styles from './CalculadoraStyle'
 /*
 import Button from '../components/Button'
@@ -16,98 +16,64 @@ export default class Calculadora extends Component {
             </View>
             <View style={styles.container}>
                 <View style={[styles.botao, styles.botao3]}>
-                    <Button 
-                        title="AC"
-                        color="gray"/>
+                    <Button titulo="AC"/>
                 </View>
                 <View style={styles.botao}>
-                    <Button title="/"
-                            color="gray"
-                        />
+                    <Button titulo="/"/>
                 </View>
             </View>
             <View style={styles.container}>
                 <View style={styles.botao}>
-                    <Button title="7"
-                        color="gray"
-                    />
+                    <Button titulo="7"/>
                 </View>
                 <View style={styles.botao}>
-                    <Button title="8"
-                        color="gray"
-                    />
+                    <Button titulo="8"/>
                 </View>
                 <View style={styles.botao}>
-                    <Button title="9"
-                        color="gray"
-                    />
+                    <Button titulo="9"/>
                 </View>
                 <View style={styles.botao}>
-                    <Button title="*"
-                        color="gray"
-                    />
+                    <Button titulo="*"/>
                 </View>
             </View>
             <View style={styles.container}>
                 <View style={styles.botao}>
-                    <Button 
-                        title="4"
-                        color="gray"
-                    />
+                    <Button titulo="4"/>
                 </View>
                 <View style={styles.botao}>
-                    <Button title="5"
-                        color="gray"
-                    />
+                    <Button titulo="5"/>
                 </View>
                 <View style={styles.botao}>
-                    <Button title="6"
-                        color="gray"
-                    />
+                    <Button titulo="6"/>
                 </View>
                 <View style={styles.botao}>
-                    <Button title="-"
-                        color="gray"
-                    />
+                    <Button titulo="-"/>
                 </View>
             </View>
             <View style={styles.container}>
                 <View style={styles.botao}>
-                    <Button title="1"
-                        color="gray"
-                    />
+                    <Button titulo="1"/>
                 </View>
                 <View style={styles.botao}>
-                    <Button title="2"
-                        color="gray"
-                    />
+                    <Button titulo="2"/>
                 </View>
                 <View style={styles.botao}>
-                    <Button title="3"
-                        color="gray"
-                    />
+                    <Button titulo="3"/>
                 </View>
                 <View style={styles.botao}>
-                    <Button title="+"
-                        color="gray"
-                    />
+                    <Button titulo="+"/>
                 </View>
             </View>
             <View style={styles.container}>
-                <View style={styles.botao2}>
-                    <Button title="0"
-                        color="gray"
+                <View style={[styles.botao ,styles.botao2]}>
+                    <Button titulo="0"
                     />
                 </View>
                 <View style={styles.botao}>
-                    <Button title="."
-                        color="gray"
-                    />
+                    <Button titulo="."/>
                 </View>
                 <View style={styles.botao}>
-                    <Button title="="
-                        color="gray"
-                    />
+                    <Button titulo="="/>
                 </View>
             </View>
         </View>
