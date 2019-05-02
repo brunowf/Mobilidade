@@ -1,43 +1,35 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Text, View } from 'react-native';
 import { Input } from 'react-native-elements';
+import Button from 'Mobilidade/components/Button'
 
-export default class Login extends Component{
-  render(){
+
+export default class Login extends Component {
+  render() {
     return (
-      <View>
-        <Input
-          placeholder='BASIC INPUT'
-        />
-
-        <Input
-          placeholder='INPUT WITH ICON'
-          leftIcon={{ type: 'font-awesome', name: 'chevron-left' }}
-        />
-
-        <Input
-          placeholder='INPUT WITH CUSTOM ICON'
-          leftIcon={
-            <Icon
-              name='user'
-              size={24}
-              color='black'
-            />
-          }
-        />
-
-        <Input
-          placeholder='INPUT WITH SHAKING EFFECT'
-          shake={true}
-        />
-
-        <Input
-          placeholder='INPUT WITH ERROR MESSAGE'
-          errorStyle={{ color: 'red' }}
-          errorMessage='ENTER A VALID ERROR HERE'
-        />
-        
+      <View style={{ justifyContent: 'center', margin: 5, flexDirection: 'column', flex: 1 }} >
+        <View style={{ alignItems: 'center', justifyContent: 'center', paddingTop: 30 }}>
+          <Text style={{ fontSize: 50 }}>Mobilidade</Text>
+        </View>
+        <View style={{ flex: 1, margin: 5, justifyContent: 'flex-end' }}>
+          <Input
+            placeholder='E-mail'
+            maxLength={20}
+          />
+        </View>
+        <View style={{ flex: 1, justifyContent: 'flex-start', paddingBottom: 70, paddingTop: 20 }}>
+          <Input
+            maxLength={20}
+            placeholder='Senha'
+            secureTextEntry
+          />
+        </View>
+        <View style={{ margin: 10, flex: 1 }}>
+          <Button titulo='Login'></Button>
+        </View>
+        <View style={{ margin: 10, flex: 1, paddingBottom: 120 }}>
+          <Button titulo='Cadastrar'></Button>
+        </View>
       </View>
     );
   }
