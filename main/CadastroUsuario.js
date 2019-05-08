@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, Button } from 'react-native';
 import { Input } from 'react-native-elements';
-import { StackActions, NavigationActions } from 'react-navigation';
+//import { StackActions, NavigationActions } from 'react-navigation';
 
 export default class CadastroUsuario extends Component {
     render() {
@@ -46,6 +46,7 @@ export default class CadastroUsuario extends Component {
                         title="Voltar"
                         onPress={() => this.props.navigation.navigate('Login')}
                     />
+                    
                     {/* <Button
                         title="Voltar"
                         onPress={() => {

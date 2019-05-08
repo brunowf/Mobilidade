@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Button } from 'react-native';
 import { Input } from 'react-native-elements';
-import { StackActions, NavigationActions } from 'react-navigation';
+//import { StackActions, NavigationActions } from 'react-navigation';
 
 export default class Login extends Component {
     render() {
@@ -26,7 +26,7 @@ export default class Login extends Component {
                 <View style={{ margin: 10, flex: 1 }}>
                     <Button title='Login'></Button>
                 </View>
-                <View style={{ margin: 10, flex: 1, paddingBottom: 120 }}>
+                <View style={{ margin: 10, flex: 1 }}>
                     <Button
                         title="cadastro"
                         onPress={() => this.props.navigation.navigate('CadastroUsuario')}
@@ -42,6 +42,12 @@ export default class Login extends Component {
                             }))
                         }}
                     />  */}
+                </View>
+                <View style={{ margin: 10, flex: 1, paddingBottom: 120 }}>
+                <Button
+                        title="Listar"
+                        onPress={() => this.props.navigation.navigate('Listar')}
+                    />
                 </View>
             </View>
         );
