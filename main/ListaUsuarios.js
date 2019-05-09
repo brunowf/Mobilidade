@@ -13,9 +13,9 @@ export default class ListaUsuarios extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://192.168.0.32:8080/carros')
+        axios.get('http://192.168.0.102:8080/carros')
             .then(resposta => {
-                //se deu errado:
+                //se deu certo:
                 this.setState({ listaUsers: resposta.data })
             })
             .catch(resposta => {
@@ -28,9 +28,9 @@ export default class ListaUsuarios extends Component {
     render() {
         return (
             <View><FlatList
-            data={this.state.listaUsers}
-            renderItem={({item}) => <Text>{item.modelo}</Text>}
-            keyExtractor={item => item.id.toString()}
+                data={this.state.listaUsers}
+                renderItem={({ item }) => <Text>{item.modelo}</Text>}
+                keyExtractor={item => item.id.toString()}
             >
             </FlatList>
             </View>
