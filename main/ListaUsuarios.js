@@ -13,7 +13,7 @@ export default class ListaUsuarios extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://192.168.0.102:8080/carros')
+        axios.get('http://192.168.0.32:8080/usuarios')
             .then(resposta => {
                 //se deu certo:
                 this.setState({ listaUsers: resposta.data })
@@ -29,7 +29,7 @@ export default class ListaUsuarios extends Component {
         return (
             <View><FlatList
                 data={this.state.listaUsers}
-                renderItem={({ item }) => <Text>{item.modelo}</Text>}
+                renderItem={({ item }) => <Text>{item.email} | {item.senha} | {item.cidade}</Text>}
                 keyExtractor={item => item.id.toString()}
             >
             </FlatList>

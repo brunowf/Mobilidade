@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, Button } from 'react-native';
-import { Input } from 'react-native-elements';
+import { Text, View, ScrollView, Button, TextInput, StyleSheet } from 'react-native';
+import { Input, FormLabel, FormInput } from 'react-native-elements';
 import axios from 'axios';
 //import { StackActions, NavigationActions } from 'react-navigation';
+
+const styles = StyleSheet.create({
+    inputs: {
+        borderColor: 'gray',
+        borderBottomWidth: 1,
+        fontSize: 18
+    }
+});
 
 export default class CadastroUsuario extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            userEmail: 'brun',
+            userEmail: '',
             userSenha: '123',
             userTelefone: '123',
             userCpf: '123',
@@ -23,27 +31,28 @@ export default class CadastroUsuario extends Component {
     }
 
     criarJson() {
-        axios.post('http://192.168.0.102:8080/usuarios', {
+        axios.post('http://192.168.0.32:8080/usuarios', {
             id: null,
-            email:"user.com",
-            senha:"senha",
-            telefone:"telef",
-            cpf:"123.123.123-12",
-            data_cadastro:"2019-04-18T21:50:30.000+0000",
-            cod_indicacao_usado:"user1XXX12",
-            cod_indicacao_proprio:null,
-            avaliacao_media:null,
-            cidade:"BIGUACU",
-            motoristas_favoritos:[],
+            email: this.state.userEmail,
+            senha: this.state.userSenha,
+            telefone: this.state.userTelefone,
+            cpf: this.state.userCpf,
+            data_cadastro: this.state.userDataCadastro,
+            cod_indicacao_usado: this.state.userCodUsado,
+            cod_indicacao_proprio: null,
+            avaliacao_media: null,
+            cidade: this.state.userCidade,
+            motoristas_favoritos: [],
         }).then(resposta => {
             //se deu certo:
             alert('deu certo')
         })
             .catch(resposta => {
-                //se deu errado:
+                //se der errado
                 alert('Deu errado!')
             })
     }
+
 
     render() {
         return (
@@ -52,36 +61,62 @@ export default class CadastroUsuario extends Component {
                     <View style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}>
                         <Text style={{ fontSize: 30 }}>Cadastro de usuário</Text>
                     </View>
-                    <View style={{ flex: 4, margin: 5, justifyContent: 'flex-end', paddingBottom: 20 }}>
-                        <Input
+                    <View style={{ flex: 4, margin: 5, justifyContent: 'flex-end', paddingBottom: 20, marginHorizontal: 20 }}>
+                        {/* <FormLabel>E-mail</FormLabel> */}
+                        <TextInput
+                            onChangeText={(text) => this.setState({ userEmail: text })}
                             placeholder='E-mail'
-                            maxLength={50} />
-                        <Input
-                            maxLength={20}
-                            placeholder='Senha' />
-                        <Input
-                            placeholder='Nome completo'
-                            maxLength={50} />
-                        <Input
-                            maxLength={11}
-                            placeholder='CPF' />
-                        <Input
-                            maxLength={11}
-                            placeholder='Telefone' />
-                        <Input
-                            maxLength={11}
-                            placeholder='Foto' />
-                        <Input
-                            maxLength={5}
-                            placeholder='Código de indicação' />
-                        <Input
                             maxLength={50}
-                            placeholder='Cidade' />
+                            style={styles.inputs}
+                        />
+                        <TextInput
+                            onChangeText={(text) => this.setState({ userSenha: text })}
+                            maxLength={20}
+                            placeholder='Senha'
+                            secureTextEntry
+                            style={styles.inputs}
+                        />
+                        <TextInput
+                            //onChangeText={(text) => this.setState({ user: text })}
+                            placeholder='Nome completo'
+                            maxLength={50}
+                            style={styles.inputs}
+                        />
+                        <TextInput
+                            onChangeText={(text) => this.setState({ userCpf: text })}
+                            maxLength={11}
+                            placeholder='CPF'
+                            style={styles.inputs}
+                        />
+                        <TextInput
+                            onChangeText={(text) => this.setState({ userTelefone: text })}
+                            maxLength={11}
+                            placeholder='Telefone'
+                            style={styles.inputs}
+                        />
+                        <TextInput
+                            //onChangeText={(text) => this.setState({ user: text })}
+                            maxLength={11}
+                            placeholder='Foto'
+                            style={styles.inputs}
+                        />
+                        <TextInput
+                            onChangeText={(text) => this.setState({ userCodUsado: text })}
+                            maxLength={5}
+                            placeholder='Código de indicação'
+                            style={styles.inputs}
+                        />
+                        <TextInput
+                            onChangeText={(text) => this.setState({ userCidade: text })}
+                            maxLength={50}
+                            placeholder='Cidade'
+                            style={styles.inputs}
+                        />
 
                     </View>
                     <View style={{ margin: 5, flex: 1 }}>
                         <Button title='Cadastrar'
-                        onPress={() => this.criarJson()}
+                            onPress={() => this.criarJson()}
                         ></Button>
                     </View>
                     <View style={{ margin: 5, flex: 1 }}>

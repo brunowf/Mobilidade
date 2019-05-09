@@ -4,6 +4,31 @@ import { Input } from 'react-native-elements';
 //import { StackActions, NavigationActions } from 'react-navigation';
 
 export default class Login extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: 'user',
+            password: 'password',
+            roles: 'USER'
+        }
+    }
+
+    criarJson() {
+        axios.post('http://192.168.0.32:8080/login', {
+            username: this.state.username,
+            password: this.state.password
+        }).then(resposta => {
+            //se deu certo:
+            alert('Deu certo!')
+        })
+            .catch(resposta => {
+                //se der errado
+                alert('Deu errado!')
+            })
+    }
+
+
     render() {
         return (
             <View style={{ justifyContent: 'center', margin: 5, flexDirection: 'column', flex: 1 }} >
@@ -25,7 +50,9 @@ export default class Login extends Component {
                         />
                     </View>
                     <View style={{ margin: 10, flex: 1 }}>
-                        <Button title='Login'></Button>
+                        <Button title='Login'>
+                            onPress={() => this.criarJson()}
+                        </Button>
                     </View>
                     <View style={{ margin: 10, flex: 1 }}>
                         <Button
