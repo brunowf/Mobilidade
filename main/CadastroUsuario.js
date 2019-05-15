@@ -94,12 +94,13 @@ export default class CadastroUsuario extends Component {
                             placeholder='Telefone'
                             style={styles.inputs}
                         />
-                        <TextInput
+                        {/* <TextInput
                             //onChangeText={(text) => this.setState({ user: text })}
                             maxLength={11}
                             placeholder='Foto'
                             style={styles.inputs}
-                        />
+                        /> */}
+                        <Button></Button>
                         <TextInput
                             onChangeText={(text) => this.setState({ userCodUsado: text })}
                             maxLength={5}
