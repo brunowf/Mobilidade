@@ -4,15 +4,10 @@ import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-nat
 import { RNCamera } from 'react-native-camera';
 
 import {
-    Container,
-    AnnotationContainer,
-    AnnotationText,
-    NewButtonContainer,
     ButtonsWrapper,
     CancelButtonContainer,
     SelectButtonContainer,
     ButtonText,
-    Marker,
     ModalContainer,
     ModalImagesListContainer,
     ModalImagesList,
@@ -23,26 +18,12 @@ import {
     ContinueButtonText,
     TakePictureButtonContainer,
     TakePictureButtonLabel,
-    DataButtonsWrapper,
-    MarkerContainer,
-    MarkerLabel,
-    Form,
-    Input,
-    DetailsModalFirstDivision,
-    DetailsModalSecondDivision,
-    DetailsModalThirdDivision,
-    DetailsModalBackButton,
-    DetailsModalPrice,
-    DetailsModalRealtyTitle,
-    DetailsModalRealtySubTitle,
-    DetailsModalRealtyAddress,
 } from './styles';
 
 export default class Camera extends Component {
 
     state = {
-        locations: [],
-        newRealty: false,
+        cameraFrontal: true,
         cameraModalOpened: false,
         dataModalOpened: false,
         detailsModalOpened: false,
@@ -99,7 +80,20 @@ export default class Camera extends Component {
             })
         }
     }
+    
 
+    verificaCamera(Camera) {
+        if (this.state.cameraFrontal) 
+            return Camera.front ;
+        return Camera.back ;
+    }
+
+
+    verificaCamera(Camera) {
+        if (this.state.cameraFrontal) 
+            return Camera.front ;
+        return Camera.back ;
+    }
 
     renderCameraModal = () => (
         <Modal
@@ -115,10 +109,10 @@ export default class Camera extends Component {
                             this.camera = camera;
                         }}
                         style={{ flex: 1 }}
-                        type={RNCamera.Constants.Type.back}
+                        type={this.verificaCamera(RNCamera.Constants.Type)}
                         autoFocus={RNCamera.Constants.AutoFocus.on}
                         flashMode={RNCamera.Constants.FlashMode.off}
-                        androidCameraPermissionOptions={{title: "Permission to use camera", message:"We need your permission to use your camera phone"}}
+                        androidCameraPermissionOptions={{ title: "Permission to use camera", message: "We need your permission to use your camera phone" }}
                     />
                     <TakePictureButtonContainer onPress={this.handleTakePicture}>
                         <TakePictureButtonLabel />
@@ -127,10 +121,10 @@ export default class Camera extends Component {
                 {this.renderImagesList()}
                 <ModalButtons>
                     <CameraButtonContainer onPress={this.handleCameraModalClose}>
-                        <CancelButtonText>Cancelar</CancelButtonText>
+                        <CancelButtonText>Voltar</CancelButtonText>
                     </CameraButtonContainer>
                     <CameraButtonContainer onPress={this.handleDataModalClose}>
-                        <ContinueButtonText>Continuar</ContinueButtonText>
+                        <ContinueButtonText>Trocar camera</ContinueButtonText>
                     </CameraButtonContainer>
                 </ModalButtons>
             </ModalContainer>
@@ -177,8 +171,9 @@ export default class Camera extends Component {
     )
 
     handleDataModalClose = () => this.setState({
-        dataModalOpened: !this.state.dataModalOpened,
-        cameraModalOpened: false,
+        // dataModalOpened: !this.state.dataModalOpened,
+        // cameraModalOpened: false,
+        cameraFrontal: !this.state.cameraFrontal
     })
 }
 
