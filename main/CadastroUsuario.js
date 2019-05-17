@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, Button, TextInput, StyleSheet } from 'react-native';
+import { Text, View, ScrollView, Button, TextInput, StyleSheet, Image } from 'react-native';
 import { Input, FormLabel, FormInput } from 'react-native-elements';
 import axios from 'axios';
+import Camera from './Camera';
 //import { StackActions, NavigationActions } from 'react-navigation';
 
 const styles = StyleSheet.create({
@@ -26,7 +27,8 @@ export default class CadastroUsuario extends Component {
             userCodProprio: null,
             userAvalM: null,
             userCidade: 'BIGUACU',
-            userMotFav: null
+            userMotFav: null,
+            imagem: null
         }
     }
 
@@ -53,15 +55,19 @@ export default class CadastroUsuario extends Component {
             })
     }
 
+    buscarImagem (imagem) {
+        this.setState({imagem: imagem});
+    }
 
     render() {
         return (
             <View style={{ justifyContent: 'center', margin: 5, flexDirection: 'column', flex: 1 }} >
                 <ScrollView>
                     <View style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 30 }}>Cadastro de usuário</Text>
+                        <Text style={{ fontSize: 30 }}>Cadastro de Usuário</Text>
                     </View>
-                    <View style={{ flex: 4, margin: 5, justifyContent: 'flex-end', paddingBottom: 20, marginHorizontal: 20 }}>
+                    <View style={{ flex: 4, margin: 5, justifyContent: 'flex-end', marginHorizontal: 20 }}>
+                        
                         {/* <FormLabel>E-mail</FormLabel> */}
                         <TextInput
                             onChangeText={(text) => this.setState({ userEmail: text })}
@@ -100,7 +106,6 @@ export default class CadastroUsuario extends Component {
                             placeholder='Foto'
                             style={styles.inputs}
                         /> */}
-                        <Button></Button>
                         <TextInput
                             onChangeText={(text) => this.setState({ userCodUsado: text })}
                             maxLength={5}
@@ -113,7 +118,12 @@ export default class CadastroUsuario extends Component {
                             placeholder='Cidade'
                             style={styles.inputs}
                         />
-
+                    </View>
+                    <View style={{ margin: 5, flex: 1 }}>
+                        <Image source={this.state.imagem} style={{width: 100, height: 100}}/>
+                    </View>
+                    <View style={{ margin: 5, flex: 1 }}>
+                        <Camera devolverImagem={this.buscarImagem.bind(this)}> </Camera>
                     </View>
                     <View style={{ margin: 5, flex: 1 }}>
                         <Button title='Cadastrar'

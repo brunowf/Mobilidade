@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal } from 'react-native';
+import { Modal, Button } from 'react-native';
 import { StyleSheet, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
@@ -23,19 +23,8 @@ export default class Camera extends Component {
     state = {
         cameraFrontal: true,
         cameraAberta: false,
-        imagem: null,
+        imagem: null
     };
-
-    abrirFecharCamera = () => this.setState({ cameraAberta: !this.state.cameraAberta })
-
-    renderConditionalsButtons = () => (
-
-        <ButtonsWrapper>
-            <SelectButtonContainer onPress={this.abrirCamera}>
-                <ButtonText>Tirar foto</ButtonText>
-            </SelectButtonContainer>
-        </ButtonsWrapper>
-    )
 
     abrirCamera = async () => {
         try {
@@ -59,9 +48,9 @@ export default class Camera extends Component {
 
 
     verificaLadoCamera(Camera) {
-        if (this.state.cameraFrontal) 
-            return Camera.front ;
-        return Camera.back ;
+        if (this.state.cameraFrontal)
+            return Camera.front;
+        return Camera.back;
     }
 
     renderCameraModal = () => (
@@ -100,11 +89,25 @@ export default class Camera extends Component {
         </Modal>
     )
 
+    abrirFecharCamera = () => {
+        this.devolverImagem(this.state.imagem);
+        this.setState({ cameraAberta: !this.state.cameraAberta });
+    }
+
+    devolverImagem(imagem) {
+        this.props.devolverImagem(imagem);
+    }
+
 
     render() {
         return (
-            <View style={styles.container}>
-                {this.renderConditionalsButtons()}
+            <View>
+                <Button title='tirar foto' onPress={this.abrirCamera}></Button>
+                {/* <ButtonsWrapper>
+                <SelectButtonContainer>
+                    <ButtonText>Tirar foto</ButtonText>
+                </SelectButtonContainer>
+            </ButtonsWrapper> */}
                 {this.renderCameraModal()}
             </View>
         );
@@ -116,7 +119,7 @@ export default class Camera extends Component {
             <ModalImagesListContainer>
                 <ModalImageItem source={{ uri: this.state.imagem.uri }} resizeMode="stretch" />
             </ModalImagesListContainer>
-            ): null
+        ) : null
     )
 
     trocarLadoCamera = () => this.setState({
