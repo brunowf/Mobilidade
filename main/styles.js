@@ -80,9 +80,10 @@ export const ModalImagesList = styled.ScrollView`
 `;
 
 export const ModalImageItem = styled.Image`
-  height: 100px;
-  width: 100px;
-  marginRight: 10px;
+  height: 150px;
+  width: 150px;
+  marginTop: 80px;
+  alignSelf: center;
 `;
 
 export const ModalButtons = styled.View`

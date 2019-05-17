@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { StatusBar, Modal } from 'react-native';
-import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Modal } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
 import {
     ButtonsWrapper,
-    CancelButtonContainer,
     SelectButtonContainer,
     ButtonText,
     ModalContainer,
     ModalImagesListContainer,
-    ModalImagesList,
     ModalImageItem,
     ModalButtons,
     CameraButtonContainer,
@@ -24,72 +22,43 @@ export default class Camera extends Component {
 
     state = {
         cameraFrontal: true,
-        cameraModalOpened: false,
-        dataModalOpened: false,
-        detailsModalOpened: false,
-        realtyDetailed: null,
-        realtyData: {
-            location: {
-                latitude: null,
-                longitude: null,
-            },
-            name: 'Rocketseat',
-            price: '10000',
-            address: 'Rua zero, 0',
-            images: [],
-        },
+        cameraAberta: false,
+        imagem: null,
     };
 
-    handleCameraModalClose = () => this.setState({ cameraModalOpened: !this.state.cameraModalOpened })
+    abrirFecharCamera = () => this.setState({ cameraAberta: !this.state.cameraAberta })
 
     renderConditionalsButtons = () => (
 
         <ButtonsWrapper>
-            <SelectButtonContainer onPress={this.tirarFoto}>
-                <ButtonText>Tirar Foto</ButtonText>
+            <SelectButtonContainer onPress={this.abrirCamera}>
+                <ButtonText>Tirar foto</ButtonText>
             </SelectButtonContainer>
-            <CancelButtonContainer>
-                <ButtonText>Cancelar</ButtonText>
-            </CancelButtonContainer>
         </ButtonsWrapper>
     )
 
-    tirarFoto = async () => {
+    abrirCamera = async () => {
         try {
             this.setState({
-                cameraModalOpened: true
+                cameraAberta: true
             });
         } catch (err) {
             console.tron.log(err);
         }
     }
 
-    handleTakePicture = async () => {
+    tirarFoto = async () => {
         if (this.camera) {
             const options = { quality: 0.5, base64: true, forceUpOrientation: true, fixOrientation: true, };
             const data = await this.camera.takePictureAsync(options)
-            const { realtyData } = this.state;
             this.setState({
-                realtyData: {
-                    ...realtyData,
-                    images: [
-                        ...realtyData.images,
-                        data,
-                    ]
-                }
+                imagem: data
             })
         }
     }
-    
-
-    verificaCamera(Camera) {
-        if (this.state.cameraFrontal) 
-            return Camera.front ;
-        return Camera.back ;
-    }
 
 
-    verificaCamera(Camera) {
+    verificaLadoCamera(Camera) {
         if (this.state.cameraFrontal) 
             return Camera.front ;
         return Camera.back ;
@@ -97,10 +66,10 @@ export default class Camera extends Component {
 
     renderCameraModal = () => (
         <Modal
-            visible={this.state.cameraModalOpened}
+            visible={this.state.cameraAberta}
             transparent={false}
-            animationType="slide"
-            onRequestClose={this.handleCameraModalClose}
+            animationType="fade"
+            onRequestClose={this.abrirFecharCamera}
         >
             <ModalContainer>
                 <ModalContainer>
@@ -109,21 +78,21 @@ export default class Camera extends Component {
                             this.camera = camera;
                         }}
                         style={{ flex: 1 }}
-                        type={this.verificaCamera(RNCamera.Constants.Type)}
+                        type={this.verificaLadoCamera(RNCamera.Constants.Type)}
                         autoFocus={RNCamera.Constants.AutoFocus.on}
                         flashMode={RNCamera.Constants.FlashMode.off}
                         androidCameraPermissionOptions={{ title: "Permission to use camera", message: "We need your permission to use your camera phone" }}
                     />
-                    <TakePictureButtonContainer onPress={this.handleTakePicture}>
+                    <TakePictureButtonContainer onPress={this.tirarFoto}>
                         <TakePictureButtonLabel />
                     </TakePictureButtonContainer>
                 </ModalContainer>
-                {this.renderImagesList()}
+                {this.renderImagem()}
                 <ModalButtons>
-                    <CameraButtonContainer onPress={this.handleCameraModalClose}>
+                    <CameraButtonContainer onPress={this.abrirFecharCamera}>
                         <CancelButtonText>Voltar</CancelButtonText>
                     </CameraButtonContainer>
-                    <CameraButtonContainer onPress={this.handleDataModalClose}>
+                    <CameraButtonContainer onPress={this.trocarLadoCamera}>
                         <ContinueButtonText>Trocar camera</ContinueButtonText>
                     </CameraButtonContainer>
                 </ModalButtons>
@@ -141,38 +110,16 @@ export default class Camera extends Component {
         );
     }
 
-    handleTakePicture = async () => {
-        if (this.camera) {
-            const options = { quality: 0.5, base64: true, forceUpOrientation: true, fixOrientation: true, };
-            const data = await this.camera.takePictureAsync(options)
-            const { realtyData } = this.state;
-            this.setState({
-                realtyData: {
-                    ...realtyData,
-                    images: [
-                        ...realtyData.images,
-                        data,
-                    ]
-                }
-            })
-        }
-    }
 
-    renderImagesList = () => (
-        this.state.realtyData.images.length !== 0 ? (
+    renderImagem = () => (
+        this.state.imagem !== null ? (
             <ModalImagesListContainer>
-                <ModalImagesList horizontal>
-                    {this.state.realtyData.images.map(image => (
-                        <ModalImageItem source={{ uri: image.uri }} resizeMode="stretch" />
-                    ))}
-                </ModalImagesList>
+                <ModalImageItem source={{ uri: this.state.imagem.uri }} resizeMode="stretch" />
             </ModalImagesListContainer>
-        ) : null
+            ): null
     )
 
-    handleDataModalClose = () => this.setState({
-        // dataModalOpened: !this.state.dataModalOpened,
-        // cameraModalOpened: false,
+    trocarLadoCamera = () => this.setState({
         cameraFrontal: !this.state.cameraFrontal
     })
 }
@@ -182,19 +129,5 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         backgroundColor: 'black',
-    },
-    preview: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-    },
-    capture: {
-        flex: 0,
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        padding: 15,
-        paddingHorizontal: 20,
-        alignSelf: 'center',
-        margin: 20,
     },
 });
